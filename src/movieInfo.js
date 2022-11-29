@@ -55,23 +55,47 @@ searchButton2.addEventListener('click', () => {
   document.querySelector('.movieInput3').value = '';
 
   let allMoviesLength = 0;
+  let allPopulation = 0;
   if (movieTitle1 !== '') {
     getData(movieTitle1, (info) => {
       allMoviesLength += Number(info.Runtime.split(' ')[0]);
       document.querySelector('.allMoviesLength').innerText = allMoviesLength;
-      console.log(info);
+      fetch(`https://restcountries.com/v3.1/name/${info.Country}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          allPopulation += data[0].population;
+          document.querySelector('.allMoviesPopulation').innerText =
+            allPopulation;
+        });
     });
   }
   if (movieTitle2 !== '') {
     getData(movieTitle2, (info) => {
       allMoviesLength += Number(info.Runtime.split(' ')[0]);
       document.querySelector('.allMoviesLength').innerText = allMoviesLength;
+      fetch(`https://restcountries.com/v3.1/name/${info.Country}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          allPopulation += data[0].population;
+          document.querySelector('.allMoviesPopulation').innerText =
+            allPopulation;
+        });
     });
   }
   if (movieTitle3 !== '') {
     getData(movieTitle3, (info) => {
       allMoviesLength += Number(info.Runtime.split(' ')[0]);
       document.querySelector('.allMoviesLength').innerText = allMoviesLength;
+      fetch(`https://restcountries.com/v3.1/name/${info.Country}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          allPopulation += data[0].population;
+          document.querySelector('.allMoviesPopulation').innerText =
+            allPopulation;
+        });
     });
   }
 });
