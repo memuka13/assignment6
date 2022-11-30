@@ -9,28 +9,23 @@ const p3 = new Promise((resolve, reject) => {
 Promise.all([p1, p2, p3]).then((values) => {
   console.log(values);
 });
-
 function myPromiseAll(array) {
   const result = [];
-  array.forEach((element, index) => {
-    element.then((value) => {
-      result[index] = value;
+  let counter = 0;
+  return new Promise((resolve, reject) => {
+    array.forEach((element, index) => {
+      Promise.resolve(element)
+        .then((x) => {
+          result[index] = x;
+          counter++;
+          console.log(counter);
+          if (counter === array.length) {
+            resolve(result);
+          }
+        })
+        .catch(reject)
+        .then((err) => err);
     });
   });
-  this.then = (members) => {
-    return new Promise((resolve, reject) => {
-      resolve(members);
-    });
-  };
-  return result;
 }
-
-// myPromiseAll.prototype.then = (members) => {
-//   return new Promise((resolve, reject) => {
-//     resolve(members);
-//   });
-// };
-
-myPromiseAll([p1, p3]).then((values) => {
-  console.log(values);
-});
+myPromiseAll([p1, p3, p2]).then((x) => console.log(x));
